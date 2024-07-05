@@ -1,0 +1,121 @@
+function solicitarHora() {
+    let hora = prompt("Introduzca la hora en formato HH:mm (24 horas):");
+    
+    //Mediante la hora introducida seleccionamos si el menú será desayuno/comida/cena.
+  
+    if (hora !== null) {
+        let horas = parseInt(hora, 10);
+        if (!isNaN(horas) && horas >= 0 && horas <= 23) {
+            if (horas >= 6 && horas < 12) {
+                mostrarMenu("desayuno");
+            } else if (horas >= 12 && horas < 18) {
+                mostrarMenu("comida");
+            } else if (horas >= 18 && horas < 24) {
+                mostrarMenu("cena");
+            } else {
+                alert("No se sirve comida en este horario.");
+            }
+        } else {
+            alert("Formato no legible. Introduzca una hora válida en formato HH.");
+        }
+    } else {
+        alert("Has cancelado la entrada.");
+    }
+}
+
+function mostrarMenu(tipo) {
+    const menus = {
+        desayuno: {
+            primero: [
+                { plato: "Zumo de naranja", precio: 2 },
+                { plato: "Yogur con frutas", precio: 3 },
+                { plato: "Macedonia", precio: 5 }
+            ],
+            segundo: [
+                { plato: "Huevos revueltos", precio: 5 },
+                { plato: "Tostadas con aguacate", precio: 4 },
+                { plato: "Churros", precio: 3 }
+            ],
+            postre: [
+                { plato: "Café con leche", precio: 3 },
+                { plato: "Sencha", precio: 2 },
+                { plato: "Kombucha", precio: 3 }
+            ]
+        },
+        comida: {
+            primero: [
+                { plato: "Ensalada César", precio: 7 },
+                { plato: "Sopa de tomate", precio: 6 },
+                { plato: "Espaguetti", precio: 5 }
+            ],
+            segundo: [
+                { plato: "Pollo asado", precio: 10 },
+                { plato: "Pasta al pesto", precio: 8 },
+                { plato: "Lubina a la sal", precio: 15 }
+            ],
+            postre: [
+                { plato: "Tarta de queso", precio: 5 },
+                { plato: "Helado de vainilla", precio: 4 },
+                { plato: "Sorbete al cava", precio: 10 }
+            ]
+        },
+        cena: {
+            primero: [
+                { plato: "Ensalada César", precio: 9 },
+                { plato: "Sopa de tomate", precio: 8 },
+                { plato: "Espaguetti", precio: 7 }
+            ],
+            segundo: [
+                { plato: "Pollo asado", precio: 12 },
+                { plato: "Pasta al pesto", precio: 10 },
+                { plato: "Lubina a la sal", precio: 17 }
+            ],
+            postre: [
+                { plato: "Tarta de queso", precio: 7 },
+                { plato: "Helado de vainilla", precio: 6 },
+                { plato: "Sorbete al cava", precio: 12 }
+            ]
+        }
+    };
+
+    const comentarios = [
+        "¡Excelente selección!",
+        "Un deleite gastronómico!",
+        "¡Disfrute su comida!",
+        "La mejor opción del menú.",
+        "No puedo imaginar nada más rico!"
+    ];
+
+    let menu = menus[tipo]; //Selección del objeto desayuno, comida o cena.
+    let totalPrecio = 0;    //Inicializamos el precio total a 0.
+    let seleccion = [];     //Partimos de un array vacio en la selección de platos.
+
+    ["primero", "segundo", "postre"].forEach(curso => {
+        let platoSeleccionado = null;   //Garantizamos un plato valido para cada elección en curso.
+
+        while (!platoSeleccionado) {
+            let opciones = menu[curso].map(item => item.plato).join(", ");
+            //Convertimos los 3 platos a elegir de cada primero/segundo/postre en una cadena.
+          
+            let eleccion = prompt(`Selecciona un ${curso} para ${tipo} escribiendo el nombre del plato: ${opciones}`).toLowerCase();
+            //Presentamos la elección entre los 3 platos de cada primero/segundo/postre.
+          
+            platoSeleccionado = menu[curso].find(item => item.plato.toLowerCase() === eleccion);
+            //recorre el array del plato en curso, conversión a minusculas para evitar problemas y compara los platos, enviando a 
+            //platoSeleccionado la elección.
+            
+            if (platoSeleccionado) {
+                let comentario = comentarios[Math.floor(Math.random() * comentarios.length)]; //Seleccion aleatoria de comentario.
+                alert(`${platoSeleccionado.plato} - ${platoSeleccionado.precio}€ - ${comentario}`); //Mostrar plato, precio y comentario.
+                seleccion.push(platoSeleccionado.plato);  //Añade el plato seleccionado al a
+                totalPrecio += platoSeleccionado.precio;  //Totalizar precio del menú.
+            } else {
+                alert("Selección no válida. Inténtalo de nuevo.");
+            }
+        }
+    });
+
+    alert(`Tu menú completo: ${seleccion.join(", ")}. Precio total: ${totalPrecio}€`);
+}
+
+solicitarHora();
