@@ -18,3 +18,16 @@ BONUS
 Have breakfast, lunch, and dinner menu. Breakfast has different items, lunch and dinner have the same items but are different prices.
 
 BONUS: Allow for item customization (how items are prepared, decide additional cost implications)
+
+Actualizaciones:
+- Se han añadido los precios de los platos en la selección.
+- Se ha incorporado una expresión regular para omitir acentos en la selección.
+- Se ha confeccionado una pantalla final, a modo de factura, mostrando un listado del  menú con su precio individual, más el precio total del menú.
+
+
+### ENLACES DE INTERES
+
+Enlace de la formación de elementos acentuados en Unicode. 
+Necesario para entender la expresión regular implementada para poder eliminar los acentos en la selección de menú.
+
+https://learn.microsoft.com/es-es/windows/win32/intl/using-unicode-normalization-to-represent-strings
